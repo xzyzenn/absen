@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Web Absensi HMIF</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="m-0 p-0 font-sans bg-cover bg-center bg-no-repeat bg-fixed" style="background-image: url('img/p.jpg');">
+
+  <!-- Header -->
+  <header class="bg-green-800 text-white py-2">
+    <div class="flex items-center justify-between px-6 h-14">
+      <img src="img/HMIF.png" alt="Logo" class="w-10 h-10 rounded-full p-1" />
+      <h2 class="text-lg font-semibold flex-grow text-center">WEB ABSENSI HMIF</h2>
+      <div class="w-10"></div>
+    </div>
+  </header>
+
+  <!-- Slideshow -->
+  <div class="container mx-auto px-4 text-center mt-6">
+    <div class="mx-auto w-full max-w-4xl rounded-lg border border-white overflow-hidden relative">
+      <div class="relative w-full h-[400px]">
+        <img src="img/1.jpg" class="slide absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-100" />
+        <img src="img/2.jpg" class="slide absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0" />
+        <img src="img/3.jpg" class="slide absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0" />
+      </div>
+    </div>
+
+    <!-- Menu -->
+    <div class="flex justify-center gap-10 mt-10">
+      <div class="bg-white rounded-md border p-4 w-28 flex flex-col items-center">
+        <img src="img/home.png" alt="Home" class="w-16 h-16 mb-2" />
+        <a href="home.html" class="bg-green-800 text-white px-3 py-1 rounded text-sm hover:bg-green-700">Home</a>
+      </div>
+      <div class="bg-white rounded-md border p-4 w-28 flex flex-col items-center">
+        <img src="img/absen.png" alt="Absen" class="w-16 h-16 mb-2" />
+        <a href="absen.html" class="bg-green-800 text-white px-3 py-1 rounded text-sm hover:bg-green-700">Absensi</a>
+      </div>
+      <div class="bg-white rounded-md border p-4 w-28 flex flex-col items-center">
+        <img src="img/acara.png" alt="Acara" class="w-16 h-16 mb-2" />
+        <a href="acara.html" class="bg-green-800 text-white px-3 py-1 rounded text-sm hover:bg-green-700">Acara</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="fixed bottom-0 w-full bg-green-800 text-white text-center py-2">
+    COPYRIGHT
+  </footer>
+
+  <!-- JS Slideshow -->
+  <script>
+    let slideIndex = 0;
+    const slides = document.querySelectorAll(".slide");
+
+    function showSlides() {
+      slides.forEach((slide, i) => {
+        slide.style.opacity = i === slideIndex ? "1" : "0";
+      });
+
+      slideIndex = (slideIndex + 1) % slides.length;
+    }
+
+    setInterval(showSlides, 3000); // Ganti setiap 3 detik
+  </script>
+
+</body>
+</html>

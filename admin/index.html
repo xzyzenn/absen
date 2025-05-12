@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+
+</head>
+<body class="bg-gray-100 min-h-screen flex">
+
+  <!-- Sidebar -->
+  <aside class="w-64 bg-gray-800 text-white flex flex-col p-6">
+    <h2 class="text-2xl font-bold mb-8">Admin</h2>
+    <nav>
+      <ul class="space-y-4">
+        <li><a href="index.html" class="flex items-center gap-2 block bg-gray-700 px-4 py-2 rounded"><iconify-icon icon="heroicons:computer-desktop-16-solid" width="20" height="20"></iconify-icon>Dashboard</a></li>
+        <li><a href="acara.html" class="flex items-center gap-2 block hover:bg-gray-700 px-4 py-2 rounded"><iconify-icon icon="heroicons:newspaper" width="20" height="20"></iconify-icon>Acara</a></li>
+        <li><a href="laporan.html" class="flex items-center gap-2 block hover:bg-gray-700 px-4 py-2 rounded"><iconify-icon icon="heroicons:pencil-square-16-solid" width="20" height="20"></iconify-icon>Laporan</a></li>
+        <li><a href="user.html" class="flex items-center gap-2 block hover:bg-gray-700 px-4 py-2 rounded"><iconify-icon icon="heroicons:user-group-16-solid" width="20" height="20"></iconify-icon>Users</a></li>
+        <li><a href="scan.html" class="flex items-center gap-2 block hover:bg-gray-700 px-4 py-2 rounded"><iconify-icon icon="heroicons:qr-code" width="20" height="20"></iconify-icon>Scan</a></li>
+        <li><a href="login.html" class="flex items-center gap-2 block hover:bg-gray-700 px-4 py-2 rounded"><iconify-icon icon="heroicons:arrow-left-end-on-rectangle-16-solid" width="20" height="20"></iconify-icon>Logout</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="flex-1 p-6">
+    <header class="bg-white p-4 rounded shadow mb-6">
+      <h1 class="text-xl font-semibold">DASHBOARD</h1>
+    </header>
+
+    <section class="bg-white p-6 rounded shadow">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <a href="`scan.html" class="bg-blue-100 hover:bg-blue-200 p-6 rounded shadow text-center transition">
+          <h2 class="text-lg font-bold text-blue-800 mb-2">Scan</h2>
+          <p class="text-sm text-blue-700">Scan QR absensi</p>
+        </a>
+        <a href="user.html" class="bg-green-100 hover:bg-green-200 p-6 rounded shadow text-center transition">
+          <h2 class="text-lg font-bold text-green-800 mb-2">User</h2>
+          <p class="text-sm text-green-700">Kelola pengguna</p>
+        </a>
+        <a href="acara.html" class="bg-yellow-100 hover:bg-yellow-200 p-6 rounded shadow text-center transition">
+          <h2 class="text-lg font-bold text-yellow-800 mb-2">Acara</h2>
+          <p class="text-sm text-yellow-700">Kelola Acara</p>
+        </a>
+
+      </div>
+    </section>
+  </main>
+
+</body>
+</html>

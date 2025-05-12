@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+  <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+
+</head>
+<body class="bg-gray-100 min-h-screen flex">
+
+  <!-- Sidebar -->
+  <aside class="w-64 bg-gray-800 text-white flex flex-col p-6">
+    <h2 class="text-2xl font-bold mb-8">Admin</h2>
+    <nav>
+      <ul class="space-y-4">
+        <li><a href="index.html" class="flex items-center gap-2 block hover:bg-gray-700 px-4 py-2 rounded"><iconify-icon icon="heroicons:computer-desktop-16-solid" width="20" height="20"></iconify-icon>Dashboard</a></li>
+        <li><a href="acara.html" class="flex items-center gap-2 block hover:bg-gray-700 px-4 py-2 rounded"><iconify-icon icon="heroicons:newspaper" width="20" height="20"></iconify-icon>Acara</a></li>
+        <li><a href="laporan.html" class="flex items-center gap-2 block hover:bg-gray-700 px-4 py-2 rounded"><iconify-icon icon="heroicons:pencil-square-16-solid" width="20" height="20"></iconify-icon>Laporan</a></li>
+        <li><a href="user.html" class="flex items-center gap-2 block hover:bg-gray-700 px-4 py-2 rounded"><iconify-icon icon="heroicons:user-group-16-solid" width="20" height="20"></iconify-icon>Users</a></li>
+        <li><a href="scan.html" class="flex items-center gap-2 block bg-gray-700 px-4 py-2 rounded"><iconify-icon icon="heroicons:qr-code" width="20" height="20"></iconify-icon>Scan</a></li>
+        <li><a href="login.html" class="flex items-center gap-2 block hover:bg-gray-700 px-4 py-2 rounded"><iconify-icon icon="heroicons:arrow-left-end-on-rectangle-16-solid" width="20" height="20"></iconify-icon>Logout</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Konten Utama -->
+    <!-- Container -->
+  <main class="max-w-xl mx-auto mt-10 p-6 rounded-lg">
+    <h1 class="text-2xl font-bold mb-4">Scan QR Code</h1>
+
+    <!-- Scanner -->
+    <div id="reader" class="w-full rounded border border-gray-300 overflow-hidden"></div>
+
+    <!-- Hasil Scan -->
+    <div class="mt-4">
+      <label class="font-semibold">Hasil Scan:</label>
+      <div id="hasil-scan" class="bg-gray-100 p-3 border rounded mt-1 text-sm text-gray-700 break-all"></div>
+    </div>
+  </main>
+
+ <script>
+    function onScanSuccess(decodedText, decodedResult) {
+      document.getElementById("hasil-scan").innerText = decodedText;
+      // html5QrcodeScanner.clear(); // jika hanya ingin satu kali scan
+    }
+
+    function onScanError(errorMessage) {
+      // Error scanning (tidak perlu ditampilkan kecuali debugging)
+    }
+
+    const html5QrcodeScanner = new Html5QrcodeScanner(
+      "reader",
+      { fps: 10, qrbox: 250 },
+      false
+    );
+
+    html5QrcodeScanner.render(onScanSuccess, onScanError);
+  </script>
+
+</body>
+</html>
