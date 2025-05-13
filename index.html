@@ -1,69 +1,102 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en" x-data="carousel()" x-init="start()">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <title>Web Absensi HMIF</title>
   <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="m-0 p-0 font-sans bg-cover bg-center bg-no-repeat bg-fixed" style="background-image: url('img/p.jpg');">
-
-  <!-- Header -->
-  <header class="bg-green-800 text-white py-2">
-    <div class="flex items-center justify-between px-6 h-14">
-      <img src="img/HMIF.png" alt="Logo" class="w-10 h-10 rounded-full p-1" />
-      <h2 class="text-lg font-semibold flex-grow text-center">WEB ABSENSI HMIF</h2>
-      <div class="w-10"></div>
-    </div>
-  </header>
-
-  <!-- Slideshow -->
-  <div class="container mx-auto px-4 text-center mt-6">
-    <div class="mx-auto w-full max-w-4xl rounded-lg border border-white overflow-hidden relative">
-      <div class="relative w-full h-[400px]">
-        <img src="img/1.jpg" class="slide absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-100" />
-        <img src="img/2.jpg" class="slide absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0" />
-        <img src="img/3.jpg" class="slide absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0" />
-      </div>
-    </div>
-
-    <!-- Menu -->
-    <div class="flex justify-center gap-10 mt-10">
-      <div class="bg-white rounded-md border p-4 w-28 flex flex-col items-center">
-        <img src="img/home.png" alt="Home" class="w-16 h-16 mb-2" />
-        <a href="home.html" class="bg-green-800 text-white px-3 py-1 rounded text-sm hover:bg-green-700">Home</a>
-      </div>
-      <div class="bg-white rounded-md border p-4 w-28 flex flex-col items-center">
-        <img src="img/absen.png" alt="Absen" class="w-16 h-16 mb-2" />
-        <a href="absen.html" class="bg-green-800 text-white px-3 py-1 rounded text-sm hover:bg-green-700">Absensi</a>
-      </div>
-      <div class="bg-white rounded-md border p-4 w-28 flex flex-col items-center">
-        <img src="img/acara.png" alt="Acara" class="w-16 h-16 mb-2" />
-        <a href="acara.html" class="bg-green-800 text-white px-3 py-1 rounded text-sm hover:bg-green-700">Acara</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- Footer -->
-  <footer class="fixed bottom-0 w-full bg-green-800 text-white text-center py-2">
-    COPYRIGHT
-  </footer>
-
-  <!-- JS Slideshow -->
-  <script>
-    let slideIndex = 0;
-    const slides = document.querySelectorAll(".slide");
-
-    function showSlides() {
-      slides.forEach((slide, i) => {
-        slide.style.opacity = i === slideIndex ? "1" : "0";
-      });
-
-      slideIndex = (slideIndex + 1) % slides.length;
+  <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+  <style>
+    body, html {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background: no-repeat center center fixed;
+      background-image: linear-gradient(rgba(0, 128, 0, 0.5), rgba(255, 255, 255, 0.5)), url('img/back.png');
+      background-size: cover;
+      background-position: center;
     }
 
-    setInterval(showSlides, 3000); // Ganti setiap 3 detik
-  </script>
+    main {
+      flex: 1;
+    }
+  </style>
+</head>
+<body class="flex flex-col min-h-screen text-white">
 
+  <!-- Header -->
+  <div class="bg-green-800 text-white px-4 py-3 flex justify-between items-center">
+    <div class="flex items-center">
+      <img src="img/HMIF.png" alt="Logo" class="h-8 w-8 sm:h-10 sm:w-10">
+    </div>
+    <h1 class="text-xs sm:text-lg md:text-xl font-bold text-center flex-grow">WEB ABSENSI HMIF</h1>
+    <div class="w-8 sm:w-10"></div> <!-- Spacer for balance -->
+  </div>
+
+  <!-- Main content -->
+  <main class="flex-grow flex flex-col items-center justify-center px-4 py-6 text-black">
+
+    <!-- Hero Slideshow -->
+    <div class="relative w-full max-w-[600px] aspect-[3/2] rounded-lg overflow-hidden mb-6 shadow-lg">
+      <template x-for="(img, index) in images" :key="index">
+        <img :src="img"
+             x-show="current === index"
+             class="absolute w-full h-full object-cover transition-opacity duration-700"
+             x-transition.opacity />
+      </template>
+    </div>
+
+    <!-- Dots Navigation -->
+    <div class="flex space-x-2 mb-8">
+      <template x-for="(img, index) in images" :key="index">
+        <button
+          @click="current = index"
+          :class="current === index ? 'bg-blue-800 scale-110' : 'bg-gray-400'"
+          class="w-4 h-4 rounded-full focus:outline-none transition duration-300 transform">
+        </button>
+      </template>
+    </div>
+
+    <!-- Absen Buttons -->
+    <div class="flex flex-row flex-wrap gap-4 sm:gap-12 justify-center items-center w-full px-4">
+      <!-- Absen Link 1 -->
+      <a href="absen.html" class="flex flex-col items-center bg-white rounded-xl p-4 shadow-lg hover:scale-105 transition-transform duration-300 w-36 sm:w-40">
+        <img src="img/absen.png" alt="Foto Absen 1" class="w-[80px] h-[80px] object-cover rounded-lg mb-2" />
+        <span class="text-green-800 font-semibold text-base sm:text-lg">Absen</span>
+      </a>
+
+      <!-- Absen Link 2 -->
+      <a href="acara.html" class="flex flex-col items-center bg-white rounded-xl p-4 shadow-lg hover:scale-105 transition-transform duration-300 w-36 sm:w-40">
+        <img src="img/acara.png" alt="Foto Absen 2" class="w-[80px] h-[80px] object-cover rounded-lg mb-2" />
+        <span class="text-green-800 font-semibold text-base sm:text-lg">Acara</span>
+      </a>
+    </div>
+
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-green-800 p-4 text-center text-white text-sm">
+    <p>&copy; 2025 HMIF - Web Absensi</p>
+  </footer>
+
+  <!-- Alpine.js Carousel Script -->
+  <script>
+    function carousel() {
+      return {
+        current: 0,
+        images: [
+          'img/1.jpg',
+          'img/2.jpg',
+          'img/3.jpg',
+        ],
+        start() {
+          setInterval(() => {
+            this.current = (this.current + 1) % this.images.length;
+          }, 4000);
+        }
+      }
+    }
+  </script>
 </body>
 </html>
