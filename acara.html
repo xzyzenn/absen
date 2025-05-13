@@ -1,81 +1,129 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Acara - Web Absensi HMIF</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Web Absensi HMIF</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Mengatur background foto agar responsif */
+        body, html {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background: no-repeat center center fixed;
+            background-image: linear-gradient(rgba(0, 128, 0, 0.5), rgba(255, 255, 255, 0.5)), url('img/back.png');            
+            background-size: cover;
+            background-position: center;
+        }
+
+        main {
+            flex: 1;
+        }
+
+        /* Styling scroll pada mobile */
+        .scrollable-menu {
+            max-height: 70vh;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: #888 #ddd;
+        }
+
+        .scrollable-menu::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .scrollable-menu::-webkit-scrollbar-thumb {
+            background-color: #888;
+            border-radius: 4px;
+        }
+
+        .scrollable-menu::-webkit-scrollbar-track {
+            background-color: #ddd;
+            border-radius: 4px;
+        }
+    </style>
 </head>
-    <body class="m-0 p-0 font-sans bg-cover bg-center bg-no-repeat bg-fixed" style="background-image: url('img/p.jpg');">
 
-    <!-- Header -->
-    <header class="bg-green-800 text-white py-4">
-        <div class="flex items-center justify-between px-6">
-            <img src="img/HMIF.png" alt="Logo" class="w-10 h-10 rounded-full p-1" />
-            <h2 class="text-lg font-semibold">WEB ABSENSI HMIF</h2>
-            <a href="index.html" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md">Back</a>
+<body class="text-gray-800">
+
+    <!-- Navbar -->
+    <div class="bg-green-800 text-white p-4 flex justify-between items-center">
+        <!-- Logo di pojok kiri -->
+        <div class="flex items-center">
+            <img src="img/HMIF.png" alt="Logo" class="h-8 w-8 sm:h-10 sm:w-10">
         </div>
-    </header>
-
-    <!-- Acara Container -->
-    <div class="acara-container p-8">
-        <h2 class="text-3xl font-semibold text-center text-green-800 mb-8">ACARA</h2>
-
-        <!-- Acara Item -->
-        <div class="acara-item flex bg-white rounded-lg p-6 mb-6 shadow-lg">
-            <div class="foto-acara bg-green-700 p-4 rounded-lg mr-6">
-                <img src="img/1.jpg" alt="Foto Acara" class="w-72 h-48 object-cover rounded-lg" />
-            </div>
-            <div class="deskripsi flex flex-col justify-between w-full bg-green-700 p-6 rounded-lg text-white">
-                <div class="info mb-3">
-                    <div class="font-semibold">Nama Acara : <span class="font-normal">Acara 1</span></div>
-                    <div class="font-semibold">Tanggal : <span class="font-normal">11-05-2025</span></div>
-                    <div class="font-semibold">Ketuplak : <span class="font-normal">Radja</span></div>
-                    <div class="font-semibold">Keterangan : <span class="font-normal">Sedang Berlangsung</span></div>
-                </div>
-                <p class="font-semibold mb-3">DESKRIPSI :</p>
-                <textarea class="w-full p-2 rounded-lg bg-gray-200 text-gray-700" rows="4" readonly>Sedang berlangsung dengan semangat dan penuh energi!</textarea>
-            </div>
-        </div>
-
-        <!-- Acara Item 2 -->
-        <div class="acara-item flex bg-white rounded-lg p-6 mb-6 shadow-lg">
-            <div class="foto-acara bg-green-700 p-4 rounded-lg mr-6">
-                <img src="img/1.jpg" alt="Foto Acara" class="w-72 h-48 object-cover rounded-lg" />
-            </div>
-            <div class="deskripsi flex flex-col justify-between w-full bg-green-700 p-6 rounded-lg text-white">
-                <div class="info mb-3">
-                    <div class="font-semibold">Nama Acara : <span class="font-normal">Acara 2</span></div>
-                    <div class="font-semibold">Tanggal : <span class="font-normal">12-05-2025</span></div>
-                    <div class="font-semibold">Ketuplak : <span class="font-normal">Budi</span></div>
-                    <div class="font-semibold">Keterangan : <span class="font-normal">Akan Datang</span></div>
-                </div>
-                <p class="font-semibold mb-3">DESKRIPSI :</p>
-                <textarea class="w-full p-2 rounded-lg bg-gray-200 text-gray-700" rows="4" readonly>Acara ini akan dilaksanakan di lokasi yang sudah ditentukan.</textarea>
-            </div>
-        </div>
+        <!-- Judul di tengah -->
+        <h1 class="text-sm sm:text-xl font-bold text-center flex-grow">WEB ABSENSI HMIF</h1>
+        <!-- Tombol Back di pojok kanan -->
+        <a href="index.html" class="bg-gray-700 px-2 py-1 rounded hover:bg-gray-600 text-xs sm:text-base">Back</a>
     </div>
 
+    <!-- Konten Utama -->
+    <main class="flex flex-col items-center py-8 rounded-lg shadow-lg m-4">
+        <!-- Wrapper Scrollable -->
+        <div class="scrollable-menu w-full px-4 sm:px-0 flex flex-wrap justify-center gap-4 sm:gap-6 lg:gap-8">
+            <!-- Grid Responsif -->
+            <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+
+                <!-- Card 1 -->
+                <div class="bg-white border border-gray-300 rounded-lg shadow-[0_8px_16px_rgba(0,0,0,0.4)] hover:shadow-[0_12px_20px_rgba(0,0,0,0.5)] w-64">
+                    <div class="p-4">
+                        <img src="img/1.jpg" alt="Poster 1" class="w-full h-40 sm:h-52 object-cover rounded-lg mb-2">
+                        <p class="text-left text-xs sm:text-sm">Nama Acara: Acara 1</p>
+                        <p class="text-left text-xs sm:text-sm">Ketupelak: Radja</p>
+                        <p class="text-left text-xs sm:text-sm">Tanggal: 17-12-2022</p>
+                        <p class="text-left text-xs sm:text-sm">Lokasi: ITERA</p>
+                        <div class="flex justify-center">
+                            <a href="detail.html" class="mt-2 bg-yellow-400 text-white px-3 py-1 rounded inline-block text-center">DETAIL</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-white border border-gray-300 rounded-lg shadow-[0_8px_16px_rgba(0,0,0,0.4)] hover:shadow-[0_12px_20px_rgba(0,0,0,0.5)] w-64">
+                    <div class="p-4">
+                        <img src="img/2.jpg" alt="Poster 2" class="w-full h-40 sm:h-52 object-cover rounded-lg mb-2">
+                        <p class="text-left text-xs sm:text-sm">Nama Acara: Acara 2</p>
+                        <p class="text-left text-xs sm:text-sm">Ketupelak: Radja</p>
+                        <p class="text-left text-xs sm:text-sm">Tanggal: 18-12-2022</p>
+                        <p class="text-left text-xs sm:text-sm">Lokasi: ITERA</p>
+                        <div class="flex justify-center">
+                            <a href="detail.html" class="mt-2 bg-yellow-400 text-white px-3 py-1 rounded inline-block text-center">DETAIL</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-white border border-gray-300 rounded-lg shadow-[0_8px_16px_rgba(0,0,0,0.4)] hover:shadow-[0_12px_20px_rgba(0,0,0,0.5)] w-64">
+                    <div class="p-4">
+                        <img src="img/3.jpg" alt="Poster 3" class="w-full h-40 sm:h-52 object-cover rounded-lg mb-2">
+                        <p class="text-left text-xs sm:text-sm">Nama Acara: Acara 3</p>
+                        <p class="text-left text-xs sm:text-sm">Ketupelak: Radja</p>
+                        <p class="text-left text-xs sm:text-sm">Tanggal: 19-12-2022</p>
+                        <p class="text-left text-xs sm:text-sm">Lokasi: ITERA</p>
+                        <div class="flex justify-center">
+                            <a href="detail.html" class="mt-2 bg-yellow-400 text-white px-3 py-1 rounded inline-block text-center">DETAIL</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
     <!-- Footer -->
-    <footer class="bg-green-800 text-white text-center py-4">
-        COPYRIGHT
+    <footer class="bg-green-800 text-white text-center py-3 mt-auto">
+        <p>&copy; 2025 Copyright TimAbsensi</p>
     </footer>
 
-    <!-- JavaScript untuk interaksi -->
-    <script>
-        // Jika kamu ingin menambahkan interaksi seperti klik atau animasi tambahan
-        const acaraItems = document.querySelectorAll('.acara-item');
-        
-        acaraItems.forEach(item => {
-            item.addEventListener('mouseenter', () => {
-                item.classList.add('transform', 'scale-105', 'transition-all', 'duration-300');
-            });
-
-            item.addEventListener('mouseleave', () => {
-                item.classList.remove('transform', 'scale-105');
-            });
-        });
-    </script>
-
 </body>
+
+<script>
+    document.querySelector('button').addEventListener('click', () => {
+        window.history.back();
+    });
+</script>
+
 </html>
