@@ -1,62 +1,97 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" x-data="{ sidebarOpen: false }" class="h-full">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Admin</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
   <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
-
 </head>
-<body class="bg-gray-100 min-h-screen flex">
+<body class="bg-gray-100 text-gray-800 h-full">
+
+  <!-- Mobile Topbar -->
+  <div class="sm:hidden bg-green-900 text-white flex items-center justify-between p-4 fixed top-0 w-full z-40">
+    <h1 class="text-lg font-bold">AbsenIF</h1>
+    <button @click="sidebarOpen = !sidebarOpen">
+      <iconify-icon icon="heroicons:bars-3" width="28" height="28"></iconify-icon>
+    </button>
+  </div>
 
   <!-- Sidebar -->
-  <aside class="w-64 bg-gray-800 text-white flex flex-col p-6">
-    <h2 class="text-2xl font-bold mb-8">Admin</h2>
-    <nav>
-      <ul class="space-y-4">
-        <li><a href="index.html" class="flex items-center gap-2 block hover:bg-gray-700 px-4 py-2 rounded"><iconify-icon icon="heroicons:computer-desktop-16-solid" width="20" height="20"></iconify-icon>Dashboard</a></li>
-        <li><a href="acara.html" class="flex items-center gap-2 block bg-gray-700 px-4 py-2 rounded"><iconify-icon icon="heroicons:newspaper" width="20" height="20"></iconify-icon>Acara</a></li>
-        <li><a href="laporan.html" class="flex items-center gap-2 block hover:bg-gray-700 px-4 py-2 rounded"><iconify-icon icon="heroicons:pencil-square-16-solid" width="20" height="20"></iconify-icon>Laporan</a></li>
-        <li><a href="user.html" class="flex items-center gap-2 block hover:bg-gray-700 px-4 py-2 rounded"><iconify-icon icon="heroicons:user-group-16-solid" width="20" height="20"></iconify-icon>Users</a></li>
-        <li><a href="scan.html" class="flex items-center gap-2 block hover:bg-gray-700 px-4 py-2 rounded"><iconify-icon icon="heroicons:qr-code" width="20" height="20"></iconify-icon>Scan</a></li>
-        <li><a href="login.html" class="flex items-center gap-2 block hover:bg-gray-700 px-4 py-2 rounded"><iconify-icon icon="heroicons:arrow-left-end-on-rectangle-16-solid" width="20" height="20"></iconify-icon>Logout</a></li>
-      </ul>
-    </nav>
-  </aside>
+  <div>
+    <aside
+      class="fixed top-0 left-0 z-40 h-full w-64 bg-green-900 text-white transform transition-transform duration-300 ease-in-out sm:translate-x-0"
+      :class="{ '-translate-x-full': !sidebarOpen, 'translate-x-0': sidebarOpen }"
+    >
+      <div class="p-6 flex flex-col h-full">
+        <div class="flex items-center justify-between sm:block mb-6">
+          <h2 class="text-2xl font-bold">AbsenIF</h2>
+          <button @click="sidebarOpen = false" class="sm:hidden">
+            <iconify-icon icon="heroicons:x-mark" width="24" height="24"></iconify-icon>
+          </button>
+        </div>
+        <nav>
+          <ul class="space-y-4">
+            <li><a href="dashboard.html" class="flex items-center gap-2 hover:bg-gray-700 px-4 py-2 rounded"><iconify-icon icon="heroicons:computer-desktop-16-solid" width="20" height="20"></iconify-icon>Dashboard</a></li>
+            <li><a href="acara.html" class="flex items-center gap-2 bg-gray-700 px-4 py-2 rounded"><iconify-icon icon="heroicons:newspaper" width="20" height="20"></iconify-icon>Acara</a></li>
+            <li><a href="anggota.html" class="flex items-center gap-2 hover:bg-gray-700 px-4 py-2 rounded"><iconify-icon icon="heroicons:pencil-square-16-solid" width="20" height="20"></iconify-icon>Anggota</a></li>
+            <li><a href="user.html" class="flex items-center gap-2 hover:bg-gray-700 px-4 py-2 rounded"><iconify-icon icon="heroicons:user-group-16-solid" width="20" height="20"></iconify-icon>Users</a></li>
+            <li><a href="scan.html" class="flex items-center gap-2 hover:bg-gray-700 px-4 py-2 rounded"><iconify-icon icon="heroicons:qr-code" width="20" height="20"></iconify-icon>Scan</a></li>
+            <li><a href="login.html" class="flex items-center gap-2 hover:bg-gray-700 px-4 py-2 rounded"><iconify-icon icon="heroicons:arrow-left-end-on-rectangle-16-solid" width="20" height="20"></iconify-icon>Logout</a></li>
+          </ul>
+        </nav>
+      </div>
+    </aside>
+
+    <!-- Overlay Mobile -->
+    <div 
+      class="fixed inset-0 bg-black bg-opacity-50 z-30 sm:hidden"
+      x-show="sidebarOpen"
+      @click="sidebarOpen = false"
+      x-transition.opacity
+    ></div>
+  </div>
 
   <!-- Konten Utama -->
-  <main class="flex-1 p-6">
+ <main class="pt-16 sm:pt-0 sm:ml-64 p-4 transition-all">
     <header class="bg-white p-4 rounded shadow mb-6">
       <h1 class="text-xl font-semibold">Daftar Acara</h1>
     </header>
 
     <section class="bg-white p-6 rounded shadow">
       <div class="flex justify-between items-center mb-4">
-        <button onclick="openEventModal()" class="flex items-center gap-2 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"><iconify-icon icon="heroicons:plus" width="20" height="20"></iconify-icon>Acara</button>
-        <input onkeyup="filterTable(this)" type="text" placeholder="Cari pengguna..." class="px-3 py-2 border rounded w-1/3">
+        <button onclick="openEventModal()" class="flex items-center gap-2 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"><iconify-icon icon="line-md:clipboard-plus" width="20" height="20"></iconify-icon></button>
+        <input onkeyup="filterTable(this)" type="text" placeholder="Cari acara..." class="px-3 py-2 border rounded w-1/3">
       </div>
 
-      <div class="overflow-x-auto">
-        <table id="userTable" class="min-w-full bg-white border rounded shadow">
-          <thead class="bg-gray-200">
-            <tr>
-              <th class="text-left px-4 py-2">Nama Acara</th>
-              <th class="text-left px-4 py-2">Ketuplak</th>
-              <th class="text-left px-4 py-2">Tanggal</th>
-              <th class="text-left px-4 py-2">Keterangan</th>
-              <th class="text-left px-4 py-2">Aksi</th>
+      <div class="w-full overflow-x-auto">
+        <table id="userTable" class="min-w-full bg-white border rounded shadow text-sm sm:table block">
+          <thead class="bg-gray-200 text-gray-700 sm:table-header-group">
+            <tr class="sm:table-row">
+              <th class="text-left px-4 py-2 border-b">NO</th>
+              <th class="text-left px-4 py-2 border-b">Nama Acara</th>
+              <th class="text-left px-4 py-2 border-b">Tanggal</th>
+              <th class="text-left px-4 py-2 border-b">Aksi</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td class="border-t px-4 py-2">Radja</td>
-              <td class="border-t px-4 py-2">Admin</td>
-              <td class="border-t px-4 py-2">1234</td>
-              <td class="border-t px-4 py-2">Berlangsung</td>
-              <td>
-                <a href="detail_acara.html" class="inline-flex items-center bg-yellow-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition gap-2"><iconify-icon icon="heroicons:plus" width="20" height="20"></iconify-icon>Anggota</a>
-                <a href="#" class="inline-flex items-center bg-red-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition gap-2"><iconify-icon icon="heroicons:minus" width="20" height="20"></iconify-icon>Hapus</a>
+          <tbody class="sm:table-row-group">
+            <tr class="sm:table-row border-b">
+              <td class="sm:table-cell px-4 py-2 font-semibold">
+                1
+              </td>
+              <td class="sm:table-cell px-4 py-2">
+                Infest
+              </td>
+              <td class="sm:table-cell px-4 py-2">
+                17-12-2022
+              </td>
+              <td class="sm:table-cell px-4 py-2">
+                <div class="flex gap-2 mt-2 sm:mt-0">
+                  <a href="detail_acara.html" class="inline-flex items-center bg-blue-600 text-white px-4 py-2 rounded hover:bg-green-700 transition gap-2"><iconify-icon icon="line-md:alert-circle-twotone" width="20" height="20"></iconify-icon></a>
+                  <button onclick="openEditModal()" class="flex items-center gap-2 bg-yellow-600 text-white px-4 py-2 rounded hover:bg-green-700"><iconify-icon icon="line-md:clipboard-list" width="20" height="20"></iconify-icon></button>
+                  <a href="#" class="inline-flex items-center bg-red-600 text-white px-4 py-2 rounded hover:bg-green-700 transition gap-2"><iconify-icon icon="line-md:trash" width="20" height="20"></iconify-icon></a>
+                </div>
               </td>
             </tr>
           </tbody>
@@ -65,87 +100,136 @@
     </section>
   </main>
 
-<!-- Modal -->
-<div id="eventModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
-  <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-xl">
-    <h2 class="text-xl font-bold mb-4">Tambah Acara</h2>
-    <form id="eventForm" class="space-y-4">
-      <!-- Nama Acara -->
+  <!-- Modal Tambah -->
+  <div id="eventModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden p-4">
+    <div class="bg-white rounded-lg shadow-lg p-6 w-11/12 max-w-xl sm:max-w-lg md:max-w-md overflow-y-auto max-h-[90vh]">
+      <h2 class="text-xl font-bold mb-4">Tambah Acara</h2>
+      <form id="eventForm" class="space-y-4">
+        <div>
+          <label class="block text-gray-700 mb-1">Nama Acara</label>
+          <input type="text" id="namaAcara" class="w-full border px-3 py-2 rounded" required>
+        </div>
+
+        <div>
+          <label class="block text-gray-700 mb-1">Ketua Pelaksana</label>
+          <input type="text" id="ketua" class="w-full border px-3 py-2 rounded" required>
+        </div>
+
+        <div>
+          <label class="block text-gray-700 mb-1">Lokasi</label>
+          <input type="text" id="lokasi" class="w-full border px-3 py-2 rounded" required>
+        </div>
+
+        <div>
+          <label class="block text-gray-700 mb-1">Foto Acara</label>
+          <input type="file" id="foto" class="w-full border px-3 py-2 rounded bg-white" accept="image/*">
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-gray-700 mb-1">Waktu Mulai</label>
+            <input type="datetime-local" id="waktuMulai" class="w-full border px-3 py-2 rounded" required>
+          </div>
+
+          <div>
+            <label class="block text-gray-700 mb-1">Waktu Berakhir</label>
+            <input type="datetime-local" id="waktuBerakhir" class="w-full border px-3 py-2 rounded" required>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2">
+            <input type="checkbox" id="aktif" class="h-4 w-4 text-green-600 border-gray-300 rounded focus:ring-green-500">
+            <label for="aktif" class="text-gray-700">Aktifkan Acara</label>
+        </div>
+
+        <div>
+          <label class="block text-gray-700 mb-1">Deskripsi</label>
+          <textarea id="deskripsi" class="w-full border px-3 py-2 rounded" rows="3"></textarea>
+        </div>
+
+        <div class="flex justify-end gap-3 pt-2">
+          <button type="button" onclick="closeEventModal()" class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">Tutup</button>
+          <button type="submit" class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">Tambah</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- Modal Edit -->
+<div id="editModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden p-4">
+  <div class="bg-white rounded-lg shadow-lg p-6 w-11/12 max-w-xl sm:max-w-lg md:max-w-md overflow-y-auto max-h-[90vh]">
+    <h2 class="text-xl font-bold mb-4">Edit Acara</h2>
+    <form id="editEventForm" class="space-y-4">
       <div>
         <label class="block text-gray-700 mb-1">Nama Acara</label>
-        <input type="text" id="namaAcara" class="w-full border px-3 py-2 rounded" required>
+        <input type="text" id="editNamaAcara" class="w-full border px-3 py-2 rounded" required>
       </div>
 
-      <!-- Ketua Pelaksana -->
       <div>
         <label class="block text-gray-700 mb-1">Ketua Pelaksana</label>
-        <input type="text" id="ketua" class="w-full border px-3 py-2 rounded" required>
+        <input type="text" id="editKetua" class="w-full border px-3 py-2 rounded" required>
       </div>
 
-      <!-- Foto Acara -->
+      <div>
+        <label class="block text-gray-700 mb-1">Lokasi</label>
+        <input type="text" id="editLokasi" class="w-full border px-3 py-2 rounded" required>
+      </div>
+
       <div>
         <label class="block text-gray-700 mb-1">Foto Acara</label>
-        <input type="file" id="foto" class="w-full border px-3 py-2 rounded bg-white" accept="image/*">
+        <input type="file" id="editFoto" class="w-full border px-3 py-2 rounded bg-white" accept="image/*">
       </div>
 
-      <!-- Tanggal -->
-      <div>
-        <label class="block text-gray-700 mb-1">Tanggal</label>
-        <input type="date" id="tanggal" class="w-full border px-3 py-2 rounded" required>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-gray-700 mb-1">Waktu Mulai</label>
+          <input type="datetime-local" id="editWaktuMulai" class="w-full border px-3 py-2 rounded" required>
+        </div>
+
+        <div>
+          <label class="block text-gray-700 mb-1">Waktu Berakhir</label>
+          <input type="datetime-local" id="editWaktuBerakhir" class="w-full border px-3 py-2 rounded" required>
+        </div>
       </div>
 
-      <!-- Keterangan Status -->
-      <div>
-        <label class="block text-gray-700 mb-1">Keterangan</label>
-        <select id="keterangan" class="w-full border px-3 py-2 rounded">
-          <option value="belum">Belum</option>
-          <option value="mulai">Mulai</option>
-          <option value="berakhir">Berakhir</option>
-        </select>
-      </div>
+      <div class="flex items-center gap-2">
+            <input type="checkbox" id="aktif" class="h-4 w-4 text-green-600 border-gray-300 rounded focus:ring-green-500">
+            <label for="aktif" class="text-gray-700">Aktifkan Acara</label>
+        </div>
 
-      <!-- Deskripsi -->
       <div>
         <label class="block text-gray-700 mb-1">Deskripsi</label>
-        <textarea id="deskripsi" class="w-full border px-3 py-2 rounded" rows="3"></textarea>
+        <textarea id="editDeskripsi" class="w-full border px-3 py-2 rounded" rows="3"></textarea>
       </div>
 
-      <!-- Action -->
       <div class="flex justify-end gap-3 pt-2">
-        <button type="button" onclick="closeEventModal()" class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">Tutup</button>
-        <button type="submit" class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">Simpan</button>
+        <button type="button" onclick="closeEditModal()" class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">Tutup</button>
+        <button type="submit" class="px-4 py-2 bg-yellow-600 text-white rounded hover:bg-green-700">Edit</button>
       </div>
     </form>
   </div>
 </div>
 
 
+  <script>
+    function openEventModal() {
+      document.getElementById("eventModal").classList.remove("hidden");
+    }
 
-<script>
-  function openEventModal() {
-    document.getElementById("eventModal").classList.remove("hidden");
-  }
+    function closeEventModal() {
+      document.getElementById("eventModal").classList.add("hidden");
+    }
 
-  function closeEventModal() {
-    document.getElementById("eventModal").classList.add("hidden");
-  }
+    function openEditModal() {
+      document.getElementById("editModal").classList.remove("hidden");
+    }
 
-  document.getElementById("eventForm").addEventListener("submit", function(e) {
-    e.preventDefault();
-    const nama = document.getElementById("namaAcara").value;
-    const ketua = document.getElementById("ketua").value;
-    const tanggal = document.getElementById("tanggal").value;
-    const keterangan = document.getElementById("keterangan").value;
-    const deskripsi = document.getElementById("deskripsi").value;
+    function closeEditModal() {
+      document.getElementById("editModal").classList.add("hidden");
+    }
 
-    console.log("Data Acara:", { nama, ketua, tanggal, keterangan, deskripsi });
-
-    // Reset form dan tutup modal
-    e.target.reset();
-    closeEventModal();
-  });
-</script>
-
+  </script>
 
 </body>
 </html>
