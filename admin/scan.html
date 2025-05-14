@@ -1,64 +1,110 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" x-data="{ sidebarOpen: false }" class="h-full">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Admin</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+  <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
   <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
-
 </head>
-<body class="bg-gray-100 min-h-screen flex">
+<body class="bg-gray-100 text-gray-800 h-full">
+
+  <!-- Mobile Topbar -->
+  <div class="sm:hidden bg-green-900 text-white flex items-center justify-between p-4 fixed top-0 w-full z-40">
+    <h1 class="text-lg font-bold">AbsenIF</h1>
+    <button @click="sidebarOpen = !sidebarOpen">
+      <iconify-icon icon="heroicons:bars-3" width="28" height="28"></iconify-icon>
+    </button>
+  </div>
 
   <!-- Sidebar -->
-  <aside class="w-64 bg-gray-800 text-white flex flex-col p-6">
-    <h2 class="text-2xl font-bold mb-8">Admin</h2>
-    <nav>
-      <ul class="space-y-4">
-        <li><a href="index.html" class="flex items-center gap-2 block hover:bg-gray-700 px-4 py-2 rounded"><iconify-icon icon="heroicons:computer-desktop-16-solid" width="20" height="20"></iconify-icon>Dashboard</a></li>
-        <li><a href="acara.html" class="flex items-center gap-2 block hover:bg-gray-700 px-4 py-2 rounded"><iconify-icon icon="heroicons:newspaper" width="20" height="20"></iconify-icon>Acara</a></li>
-        <li><a href="laporan.html" class="flex items-center gap-2 block hover:bg-gray-700 px-4 py-2 rounded"><iconify-icon icon="heroicons:pencil-square-16-solid" width="20" height="20"></iconify-icon>Laporan</a></li>
-        <li><a href="user.html" class="flex items-center gap-2 block hover:bg-gray-700 px-4 py-2 rounded"><iconify-icon icon="heroicons:user-group-16-solid" width="20" height="20"></iconify-icon>Users</a></li>
-        <li><a href="scan.html" class="flex items-center gap-2 block bg-gray-700 px-4 py-2 rounded"><iconify-icon icon="heroicons:qr-code" width="20" height="20"></iconify-icon>Scan</a></li>
-        <li><a href="login.html" class="flex items-center gap-2 block hover:bg-gray-700 px-4 py-2 rounded"><iconify-icon icon="heroicons:arrow-left-end-on-rectangle-16-solid" width="20" height="20"></iconify-icon>Logout</a></li>
-      </ul>
-    </nav>
-  </aside>
+  <div>
+    <aside
+      class="fixed top-0 left-0 z-40 h-full w-64 bg-green-900 text-white transform transition-transform duration-300 ease-in-out sm:translate-x-0"
+      :class="{ '-translate-x-full': !sidebarOpen, 'translate-x-0': sidebarOpen }"
+    >
+      <div class="p-6 flex flex-col h-full">
+        <div class="flex items-center justify-between sm:block mb-6">
+          <h2 class="text-2xl font-bold">AbsenIF</h2>
+          <button @click="sidebarOpen = false" class="sm:hidden">
+            <iconify-icon icon="heroicons:x-mark" width="24" height="24"></iconify-icon>
+          </button>
+        </div>
+        <nav>
+          <ul class="space-y-4">
+            <li><a href="dashboard.html" class="flex items-center gap-2 hover:bg-gray-700 px-4 py-2 rounded"><iconify-icon icon="heroicons:computer-desktop-16-solid" width="20" height="20"></iconify-icon>Dashboard</a></li>
+            <li><a href="acara.html" class="flex items-center gap-2 hover:bg-gray-700 px-4 py-2 rounded"><iconify-icon icon="heroicons:newspaper" width="20" height="20"></iconify-icon>Acara</a></li>
+            <li><a href="anggota.html" class="flex items-center gap-2 hover:bg-gray-700 px-4 py-2 rounded"><iconify-icon icon="heroicons:pencil-square-16-solid" width="20" height="20"></iconify-icon>Anggota</a></li>
+            <li><a href="user.html" class="flex items-center gap-2 hover:bg-gray-700 px-4 py-2 rounded"><iconify-icon icon="heroicons:user-group-16-solid" width="20" height="20"></iconify-icon>Users</a></li>
+            <li><a href="scan.html" class="flex items-center gap-2 bg-gray-700 px-4 py-2 rounded"><iconify-icon icon="heroicons:qr-code" width="20" height="20"></iconify-icon>Scan</a></li>
+            <li><a href="login.html" class="flex items-center gap-2 hover:bg-gray-700 px-4 py-2 rounded"><iconify-icon icon="heroicons:arrow-left-end-on-rectangle-16-solid" width="20" height="20"></iconify-icon>Logout</a></li>
+          </ul>
+        </nav>
+      </div>
+    </aside>
+
+    <!-- Overlay Mobile -->
+    <div 
+      class="fixed inset-0 bg-black bg-opacity-50 z-30 sm:hidden"
+      x-show="sidebarOpen"
+      @click="sidebarOpen = false"
+      x-transition.opacity
+    ></div>
+  </div>
 
   <!-- Konten Utama -->
-    <!-- Container -->
-  <main class="max-w-xl mx-auto mt-10 p-6 rounded-lg">
-    <h1 class="text-2xl font-bold mb-4">Scan QR Code</h1>
+<main class="pt-16 sm:pt-0 sm:ml-64 p-4 transition-all">
+  <div class="max-w-3xl mx-auto">
+      <h1 class="text-3xl font-bold mb-6">Scan QR Code</h1>
 
-    <!-- Scanner -->
-    <div id="reader" class="w-full rounded border border-gray-300 overflow-hidden"></div>
+      <!-- Form Buka Kamera -->
+      <div class="bg-white p-6 rounded-lg shadow mb-6">
+        <h2 class="text-xl font-semibold mb-4">Buka Kamera</h2>
+        <button id="btn-buka-kamera" class="bg-green-700 text-white px-4 py-2 rounded hover:bg-green-800">
+          Mulai Scan
+        </button>
+      </div>
 
-    <!-- Hasil Scan -->
-    <div class="mt-4">
-      <label class="font-semibold">Hasil Scan:</label>
-      <div id="hasil-scan" class="bg-gray-100 p-3 border rounded mt-1 text-sm text-gray-700 break-all"></div>
+      <!-- Scanner -->
+      <div id="reader" class="hidden border border-gray-300 rounded-lg overflow-hidden"></div>
+
+      <!-- Hasil Scan -->
+      <div id="hasil" class="mt-6 hidden">
+        <h3 class="font-semibold mb-2">Hasil Scan:</h3>
+        <div id="hasil-scan" class="bg-gray-200 p-4 rounded text-gray-800 text-sm break-words"></div>
+      </div>
     </div>
-  </main>
+</main>
+<script>
+    const btnBukaKamera = document.getElementById('btn-buka-kamera');
+    const readerElement = document.getElementById('reader');
+    const hasilElement = document.getElementById('hasil');
+    const hasilScan = document.getElementById('hasil-scan');
 
- <script>
     function onScanSuccess(decodedText, decodedResult) {
-      document.getElementById("hasil-scan").innerText = decodedText;
-      // html5QrcodeScanner.clear(); // jika hanya ingin satu kali scan
+      hasilScan.textContent = decodedText;
+      hasilElement.classList.remove('hidden');
     }
 
     function onScanError(errorMessage) {
-      // Error scanning (tidak perlu ditampilkan kecuali debugging)
+      // Optional: tampilkan error ke konsol
+      console.warn(errorMessage);
     }
 
-    const html5QrcodeScanner = new Html5QrcodeScanner(
-      "reader",
-      { fps: 10, qrbox: 250 },
-      false
-    );
-
-    html5QrcodeScanner.render(onScanSuccess, onScanError);
+    btnBukaKamera.addEventListener('click', () => {
+      readerElement.classList.remove('hidden');
+      const html5QrcodeScanner = new Html5Qrcode("reader");
+      html5QrcodeScanner.start(
+        { facingMode: "environment" },
+        { fps: 10, qrbox: 250 },
+        onScanSuccess,
+        onScanError
+      );
+    });
   </script>
+
 
 </body>
 </html>
